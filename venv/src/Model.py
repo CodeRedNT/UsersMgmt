@@ -4,7 +4,7 @@ mUsuarios = []
 
 def carregarUsuariosDoArquivo():
     try:
-        file = open("usuarios", "w+")
+        file = open("usuarios", "r")
         linhas = file.readlines()
         mUsuarios = []
         for linha in linhas:
@@ -28,7 +28,7 @@ def cadastrarUsuario():
 
     mUsuarios.append(usuario)
     print(len(mUsuarios))
-    salvarUsuarioNoArquivo()
+    salvarUsuariosNoArquivo()
     input()
 
 def salvarUsuariosNoArquivo():

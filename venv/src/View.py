@@ -7,12 +7,14 @@ clear = lambda: os.system('clear')
 def montarMenu():
     opcao = 1
     Presenter.iniciarScript()
-    clear()
     while opcao != 0:
         print("Escolha uma das opções abaixo:\n")
         print("     1 - Listar usuários")
         print("     2 - Cadastrar novo usuário")
-        # print("     3 - Excluir usuário")
+        print("     3 - Excluir usuário")
+        print("     4 - Pesquisar usuário - por login")
+        print("     5 - Pesquisar usuário - por data de acesso")
+        print("     6 - Super usuários")
         print("     0 - Sair")
 
         try:

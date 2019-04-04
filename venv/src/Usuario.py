@@ -10,7 +10,7 @@ class Usuario:
         self.dataHoraLogin = dataHoraLogin
 
     def __str__(self):
-        return self.nome+"|"+self.login+"|"+self.senha+"|"+self.cargo+"|"+str(self.nivelAcesso)+"|"+self.dataHoraLogin
+        return self.nome+"|"+self.login+"|"+self.senha+"|"+self.cargo+"|"+self.nivelAcesso+"|"+self.dataHoraLogin
 
 
 class NivelAcesso(Enum):

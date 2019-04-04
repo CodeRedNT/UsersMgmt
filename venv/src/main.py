@@ -2,6 +2,7 @@
 # -*- coding: latin-1 -*-
 import View
 
+View.clear()
 print("========================")
 print("Gerenciador de usuarios")
 print("========================")

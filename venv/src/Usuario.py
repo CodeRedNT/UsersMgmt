@@ -1,16 +1,18 @@
 from enum import Enum
 
+
 class Usuario:
-    def __init__(self, nome, login, senha, cargo, nivelAcesso, dataHoraLogin):
+    def __init__(self, nome, login, senha, cargo, nivelAcesso, dataLogin, horaLogin):
         self.nome = nome
         self.login = login
         self.senha = senha
         self.cargo = cargo
         self.nivelAcesso = nivelAcesso
-        self.dataHoraLogin = dataHoraLogin
+        self.dataLogin = dataLogin
+        self.horaLogin = horaLogin
 
     def __str__(self):
-        return self.nome+"|"+self.login+"|"+self.senha+"|"+self.cargo+"|"+self.nivelAcesso+"|"+self.dataHoraLogin
+        return self.nome + "|" + self.login + "|" + self.senha + "|" + self.cargo + "|" + self.nivelAcesso + "|" + self.dataLogin + "|" + self.horaLogin
 
 
 class NivelAcesso(Enum):

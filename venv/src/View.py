@@ -29,6 +29,16 @@ def montarMenu():
             Presenter.cadastrarUsuario()
             clear()
         elif opcao == 3:
+            Presenter.excluirUsuario()
             clear()
-        elif opcao not in [1-2]:
+        elif opcao == 4:
+            Presenter.consultarUsuario()
+            clear()
+        elif opcao == 5:
+            Presenter.consultarUsuariosPorData()
+            clear()
+        elif opcao == 6:
+            Presenter.listarSuperUsuarios()
+            clear()
+        elif opcao not in [1-6]:
             Presenter.sairDoScript()

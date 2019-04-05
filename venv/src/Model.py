@@ -4,14 +4,16 @@ import operator
 
 mUsuarios = []
 
+
 def carregarUsuariosDoArquivo():
     try:
         file = open("usuarios", "r")
         linhas = file.readlines()
         for linha in linhas:
-            usuarioLido = Usuario(linha.split("|")[0], linha.split("|")[1], linha.split("|")[2],
-                                    linha.split("|")[3], linha.split("|")[4], linha.split("|")[5])
-            mUsuarios.append(usuarioLido)
+            if linha.strip():
+                usuarioLido = Usuario(linha.split("|")[0], linha.split("|")[1], linha.split("|")[2],
+                                      linha.split("|")[3], linha.split("|")[4], linha.split("|")[5], linha.split("|")[6])
+                mUsuarios.append(usuarioLido)
 
         file.close()
     except:
@@ -19,39 +21,94 @@ def carregarUsuariosDoArquivo():
 
 
 def cadastrarUsuario():
-    print("\n\nCadastrar novo usuário")
-    nome = input("   Nome do usuário: ")
-    login = input("   Login: ")
-    senha = input("   Senha: ")
-    cargo = input("   Cargo: ")
-    nivelAcesso = input("   Nível de acesso: ")
-    dataHoraLogin = datetime.now().strftime("%Y-%m-%d %H:%M")
-    usuario = Usuario(nome, login, senha, cargo, nivelAcesso, dataHoraLogin)
+    continuar = "S"
+    while continuar == "S":
+        print("\n\nCadastrar novo usuário")
+        nome = input("   Nome do usuário: ")
+        usuarioExiste = True
+        while usuarioExiste:
+            login = input("   Login: ")
+            usuarioExiste = consultarUsuario(login)
+            if usuarioExiste:
+                print("    -> Usuário " + login + " já cadastrado. Informe outro login para este usuário.")
 
-    mUsuarios.append(usuario)
-    print("Quantidade" + str(len(mUsuarios)))
+        senha = input("   Senha: ")
+        cargo = input("   Cargo: ")
+        print("   Níveis de acesso: ")
+        print("       1 - Visitante")
+        print("       2 - Usuário")
+        print("       3 - Administrativo")
+        print("       4 - Técnico")
+        print("       5 - Super-Usuário")
+
+        nivelAcesso = input("   Nível de acesso: ")
+        dataLogin = datetime.now().strftime("%d/%m/%Y")
+        horaLogin = datetime.now().strftime("H:%M")
+        usuario = Usuario(nome, login, senha, cargo, nivelAcesso, dataLogin, horaLogin)
+
+        mUsuarios.append(usuario)
+        print("Quantidade" + str(len(mUsuarios)))
+        continuar = input("Cadastrar outro usuário? (s/N): ").upper()
     salvarUsuariosNoArquivo()
-    input()
+
+
+def consultarUsuario(login):
+    for usuario in mUsuarios:
+        if usuario.login == login:
+            print("    -> Usuário " + usuario.__str__())
+            return True
+
+
+def listarSuperUsuarios():
+    count = 0
+    for usuario in mUsuarios:
+        if usuario.nivelAcesso == "5":
+            count += 1
+            print(usuario.__str__())
+    print("\nTotal de Super-Usuários -> " + str(count))
+
+
+def excluirUsuario(login):
+    for usuario in mUsuarios:
+        if usuario.login == login:
+            mUsuarios.remove(usuario)
+            salvarUsuariosNoArquivo()
+            print("    -> Usuário " + login + "  exclúido com sucesso.")
+
 
 def salvarUsuariosNoArquivo():
     file = open("usuarios", "w+")
     for i in mUsuarios:
-        file.write("%s" % i)
+        file.write("%s\n" % i)
     file.close()
+
+
+def consultarUsuarioPorData(data):
+    count = 0
+    try:
+        objetoData = datetime.strptime(data, '%d/%m/%Y')
+        for usuario in mUsuarios:
+            if datetime.strptime(usuario.dataLogin, '%d/%m/%Y') >= objetoData:
+                count += 1
+                print("    -> Usuário " + usuario.__str__())
+
+        print("\nTotal de Usuários encontrados -> " + str(count))
+
+    except:
+        print("Data informada inválida")
+
 
 def listarUsuarios():
     print("\n\n===================Usuários cadastrados===================\n")
     print("login  |  nome  |  cargo  |  nivel acesso  |  ultimo login")
     mUsuarios.sort(key=lambda x: x.nivelAcesso, reverse=False)
-    # usuriosOrdenados = sorted(mUsuarios, key=operator.attrgetter('nivelAcesso'))
     for usuario in mUsuarios:
-        print(usuario.login+ "  |  "+usuario.nome+ "  |  "+usuario.cargo+ "  |  "+usuario.nivelAcesso+ "  |  "+usuario.dataHoraLogin)
+        print(
+            usuario.login + "  |  " + usuario.nome + "  |  " + usuario.cargo + "  |  " + usuario.nivelAcesso + "  |  " + usuario.dataLogin+ "  |  " + usuario.horaLogin,
+            end="")
     print("\n===========================================================\n")
-    print("\nTotal de usuários -> "+str(len(mUsuarios)))
+    print("\nTotal de usuários -> " + str(len(mUsuarios)))
 
-
-def excluirUsuario(login):
-    print("\n\nExcluir usuário")
 
 def sair():
     print("\n========================")

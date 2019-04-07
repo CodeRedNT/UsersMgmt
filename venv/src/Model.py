@@ -43,11 +43,11 @@ def cadastrarUsuario():
 
         nivelAcesso = input("   Nível de acesso: ")
         dataLogin = datetime.now().strftime("%d/%m/%Y")
-        horaLogin = datetime.now().strftime("H:%M")
+        horaLogin = datetime.now().strftime("h:%M")
         usuario = Usuario(nome, login, senha, cargo, nivelAcesso, dataLogin, horaLogin)
 
         mUsuarios.append(usuario)
-        print("Quantidade" + str(len(mUsuarios)))
+        print("\nTotal de usuários na base -> " + str(len(mUsuarios)))
         continuar = input("Cadastrar outro usuário? (s/N): ").upper()
     salvarUsuariosNoArquivo()
 
@@ -64,7 +64,7 @@ def listarSuperUsuarios():
     for usuario in mUsuarios:
         if usuario.nivelAcesso == "5":
             count += 1
-            print(usuario.__str__())
+            print(usuario.__str__(), end="\n")
     print("\nTotal de Super-Usuários -> " + str(count))
 
 
@@ -79,7 +79,7 @@ def excluirUsuario(login):
 def salvarUsuariosNoArquivo():
     file = open("usuarios", "w+")
     for i in mUsuarios:
-        file.write("%s\n" % i)
+        file.write("%s\n\r" % i)
     file.close()
 
 
@@ -107,7 +107,7 @@ def listarUsuarios():
             usuario.login + "  |  " + usuario.nome + "  |  " + usuario.cargo + "  |  " + usuario.nivelAcesso + "  |  " + usuario.dataLogin+ "  |  " + usuario.horaLogin,
             end="")
     print("\n===========================================================\n")
-    print("\nTotal de usuários -> " + str(len(mUsuarios)))
+    print("\nTotal de usuários (ordenado por nível de acesso) -> " + str(len(mUsuarios)))
 
 
 def sair():

@@ -26,7 +26,7 @@ def consultarUsuario():
         login = input("   Informe o login do usu￿ário que deseja consultar: ")
         if not Model.consultarUsuario(login):
             print("    -> Usuário " + login+" não encontrado!" )
-        continuar = input("Cadastrar outro usuário? (s/N): ").upper()
+        continuar = input("Consultar outro usuário? (s/N): ").upper()
 
 
 def listarSuperUsuarios():

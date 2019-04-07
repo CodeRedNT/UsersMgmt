@@ -2,7 +2,7 @@
 # -*- coding: latin-1 -*-
 import View
 
-View.clear()
+View.limparTela()
 print("========================")
 print("Gerenciador de usuarios")
 print("========================")

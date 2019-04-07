@@ -2,7 +2,7 @@
 import os
 import sys
 import Presenter
-clear = lambda: os.system('clear')
+
 
 def montarMenu():
     opcao = 1
@@ -24,21 +24,46 @@ def montarMenu():
 
         if opcao == 1:
             Presenter.listarUsuarios()
-            clear()
+            limparTela()
         elif opcao == 2:
             Presenter.cadastrarUsuario()
-            clear()
+            limparTela()
         elif opcao == 3:
             Presenter.excluirUsuario()
-            clear()
+            limparTela()
         elif opcao == 4:
             Presenter.consultarUsuario()
-            clear()
+            limparTela()
         elif opcao == 5:
             Presenter.consultarUsuariosPorData()
-            clear()
+            limparTela()
         elif opcao == 6:
             Presenter.listarSuperUsuarios()
-            clear()
+            limparTela()
         elif opcao not in [1-6]:
             Presenter.sairDoScript()
+
+
+def limparTela():
+
+    if identificarPlataforma() == "Linux":
+        clear = lambda: os.system('clear')
+    elif identificarPlataforma() == "Windows":
+        clear = lambda: os.system('cls')
+    else:
+        clear = lambda: os.system('clear')
+
+    clear()
+
+
+def identificarPlataforma():
+    platforms = {
+        'linux1': 'Linux',
+        'linux2': 'Linux',
+        'darwin': 'OS X',
+        'win32': 'Windows'
+    }
+    if sys.platform not in platforms:
+        return sys.platform
+
+    return platforms[sys.platform]
